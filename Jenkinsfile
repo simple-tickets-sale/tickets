@@ -1,5 +1,9 @@
 pipeline {
-   agent any
+   agent {
+       docker {
+          image 'node:10.11.0-alpine'
+    }
+   }
 
    environment {
      // You must set the following environment variables
@@ -8,8 +12,6 @@ pipeline {
      SERVICE_NAME = "tickets"
      REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
    }
-
-   tools {nodejs "nodejs"}
 
    stages {
       stage('Preparation') {
