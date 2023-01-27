@@ -18,6 +18,12 @@ pipeline {
          }
       }
 
+      stage('Build') {
+         steps {
+            sh 'npm install'
+         }
+      }
+
       stage('Build and Push Image') {
          steps {
            sh 'docker image build -t ${REPOSITORY_TAG} .'
