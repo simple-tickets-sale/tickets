@@ -1,10 +1,6 @@
 pipeline {
-   agent {
-       docker {
-          image 'node:10.11.0-alpine'
-    }
-   }
-
+   agent any
+   
    environment {
      // You must set the following environment variables
      // ORGANIZATION_NAME
