@@ -9,6 +9,8 @@ pipeline {
      REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
    }
 
+   tools {nodejs "nodejs"}
+
    stages {
       stage('Preparation') {
          steps {
