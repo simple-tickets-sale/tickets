@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}
+spec:
+  selector:
+    matchLabels:
+      app: tickets
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tickets
+    spec:
+      containers:
+        - name: tickets
+          image: liad123121/{{.Values.tickets.image}}
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 50m
+          readinessProbe:
+            httpGet:
+              path: {{.Values.tickets.readinessProbe}}
+              port: 4000
+          env:
+          {{- include "mongoURI" . | indent 12 -}}
+            - name: RABBITMQ_CONNECTION
+              value: {{.Values.tickets.env.RABBITMQ_CONNECTION}}
