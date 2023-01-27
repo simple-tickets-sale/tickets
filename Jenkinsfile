@@ -3,10 +3,6 @@ pipeline {
    tools{
     nodejs 'nodejs'
    }
-   tools{
-    docker 'docker'
-   }
-
 
    environment {
      // You must set the following environment variables
