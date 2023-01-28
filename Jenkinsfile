@@ -1,9 +1,6 @@
 pipeline {
    agent any
-   tools{
-    nodejs 'nodejs'
-   }
-
+   
    environment {
      // You must set the following environment variables
      // ORGANIZATION_NAME
