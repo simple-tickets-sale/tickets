@@ -31,7 +31,7 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-                    sh 'envsubst < ${WORKSPACE}/tickets-helm/values.yaml | helm upgrade tickets ${WORKSPACE}/tickets-helm'
+                    sh 'envsubst < ${WORKSPACE}/tickets-helm/values.yaml | helm install tickets ${WORKSPACE}/tickets-helm'
           }
       }
    }
