@@ -2,5 +2,5 @@ tickets:
   env:
     MONGO_URI: -mongodb.default.svc.cluster.local/testingprojticket
     RABBITMQ_CONNECTION: amqp://user:nZqyp1imvrLxdncz@rabbitmq.default.svc.cluster.local
-  image: ${REPOSITORY_TAG}
+  image: $REPOSITORY_TAG
   readinessProbe: /api/tickets/ping

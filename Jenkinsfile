@@ -31,9 +31,7 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-            withEnv(["WORKSPACE=${WORKSPACE}", "SERVICE_NAME=${SERVICE_NAME}", "REPOSITORY_TAG=${REPOSITORY_TAG}"]) {
-                    sh 'envsubst < ${WORKSPACE}/tickets-helm/values.yaml | envsubst < ${WORKSPACE}/tickets-helm/templates/${SERVICE_NAME}.yaml | helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm'
-            }
+            sh 'envsubst < ${WORKSPACE}/tickets-helm/values.yaml | envsubst < ${WORKSPACE}/tickets-helm/templates/${SERVICE_NAME}.yaml | helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm'
           }
       }
    }
