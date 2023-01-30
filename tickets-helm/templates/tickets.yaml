@@ -27,3 +27,15 @@ spec:
           {{- include "mongoURI" . | indent 12 -}}
             - name: RABBITMQ_CONNECTION
               value: {{.Values.tickets.env.RABBITMQ_CONNECTION}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Release.Name}}-svc
+spec:
+  selector:
+    app: tickets
+  ports:
+    - port: 4000
+      targetPort: 4000
