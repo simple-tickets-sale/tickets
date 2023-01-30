@@ -31,13 +31,7 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-            sh '''
-            if helm ls --all-namespaces --all | grep -o tickets; then
-               helm upgrade ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
-            else 
-               helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
-            fi
-            '''
+            sh 'helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}'
           }
       }
    }
