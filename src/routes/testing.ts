@@ -4,9 +4,9 @@ import { publish } from "../rabbitmq/Publisher";
 const router = express.Router();
 
 router.post("/api/tickets/test", async (req: Request, res: Response) => {
-  const message = req.body.message;
+  const { message, message2 } = req.body;
 
-  await publish.publish(message);
+  await publish.publish(JSON.stringify({ message, message2 }));
   res.send("success");
 });
 
