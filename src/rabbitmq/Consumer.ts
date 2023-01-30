@@ -1,7 +1,12 @@
 import { rabbitmqConnection } from "./Connection";
+import { ConsumeMessage } from "amqplib";
+
+interface ConsumerCallback {
+  (msg: ConsumeMessage | null): void;
+}
 
 export class Consumer {
-  async consume() {
+  async consume(consumerCallback: ConsumerCallback) {
     try {
       await rabbitmqConnection.channel.assertExchange("test", "topic", {
         durable: false,
@@ -14,13 +19,9 @@ export class Consumer {
       /*await rabbitmqConnection.channel.assertQueue("test", { durable: true });
       await rabbitmqConnection.channel.prefetch(1); //only one "worker" at a time, one pod at a time can recieve a message*/
 
-      rabbitmqConnection.channel.consume(
-        q.queue,
-        (msg) => {
-          console.log(msg!.content.toString());
-        },
-        { noAck: true }
-      );
+      rabbitmqConnection.channel.consume(q.queue, consumerCallback, {
+        noAck: true,
+      });
     } catch (error) {
       console.error(error);
     }

@@ -36,7 +36,9 @@ const start = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     await rabbitmqConnection.connect(process.env.RABBITMQ_CONNECTION);
-    await rabbitmqConsumer.consume();
+    await rabbitmqConsumer.consume((msg) => {
+      console.log(JSON.parse(msg!.content.toString()));
+    });
   } catch (error) {
     console.error(error);
   }

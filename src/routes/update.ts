@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 import { Ticket } from "../models/ticket";
+import { publish } from "../rabbitmq/Publisher";
 
 const router = express.Router();
 
 router.put("/api/tickets/buy", async (req: Request, res: Response) => {
-  const name = req.body.name;
+  const { name, userid } = req.body;
 
   const isExist = await Ticket.findOne({ name });
 
@@ -14,6 +15,7 @@ router.put("/api/tickets/buy", async (req: Request, res: Response) => {
 
   isExist.quantity = isExist.quantity - 1;
   await isExist.save();
+  //await publish.publish(JSON.stringify({ ticketid: isExist._id, userid }));
 
   res.send(isExist);
 });
