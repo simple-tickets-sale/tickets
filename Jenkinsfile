@@ -31,7 +31,13 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-            sh 'envsubst < ${WORKSPACE}/tickets-helm/values.yaml | envsubst < ${WORKSPACE}/tickets-helm/templates/${SERVICE_NAME}.yaml | helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}'
+            sh '
+            if helm ls --all-namespaces --all | grep -o tickets; then
+               helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
+            else 
+               helm upgrade ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
+            fi
+            '
           }
       }
    }
