@@ -31,13 +31,13 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-            sh '
+            sh '''
             if helm ls --all-namespaces --all | grep -o tickets; then
                helm install ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
             else 
                helm upgrade ${SERVICE_NAME} ${WORKSPACE}/tickets-helm --set tickets.image=${REPOSITORY_TAG}
             fi
-            '
+            '''
           }
       }
    }
