@@ -1,20 +1,15 @@
 import { rabbitmqConnection } from "./Connection";
 
 export class Publisher {
-  async publish(message: string) {
+  async publish(message: string, exchangeName: string, routingKey: string) {
     try {
-      await rabbitmqConnection.channel.assertExchange("test", "topic", {
+      await rabbitmqConnection.channel.assertExchange(exchangeName, "topic", {
         durable: false,
       });
       rabbitmqConnection.channel.publish(
-        "test",
-        "tickets.receive",
+        exchangeName,
+        routingKey,
         Buffer.from(message)
-      );
-      rabbitmqConnection.channel.publish(
-        "test",
-        "brown.receive",
-        Buffer.from("testingtesting")
       );
       /*await rabbitmqConnection.channel.assertQueue(queue, { durable: true });
       rabbitmqConnection.channel.sendToQueue(queue, Buffer.from(message), {

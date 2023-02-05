@@ -14,8 +14,16 @@ router.put("/api/tickets/buy", async (req: Request, res: Response) => {
   }
 
   isExist.quantity = isExist.quantity - 1;
-  await isExist.save();
-  //await publish.publish(JSON.stringify({ ticketid: isExist._id, userid }));
+  try {
+    await isExist.save();
+    await publish.publish(
+      JSON.stringify({ name, userid }),
+      "order",
+      "order.ticket"
+    );
+  } catch (error) {
+    console.error(error);
+  }
 
   res.send(isExist);
 });
