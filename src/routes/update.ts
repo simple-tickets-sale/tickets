@@ -7,7 +7,7 @@ const router = express.Router();
 router.put("/api/tickets/buy", async (req: Request, res: Response) => {
   const { ticketid, userid } = req.body;
 
-  const isExist = await Ticket.findOne({ ticketid });
+  const isExist = await Ticket.findById(ticketid);
 
   if (!isExist) {
     throw new Error("no ticket was found");
