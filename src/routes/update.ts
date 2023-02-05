@@ -5,9 +5,9 @@ import { publish } from "../rabbitmq/Publisher";
 const router = express.Router();
 
 router.put("/api/tickets/buy", async (req: Request, res: Response) => {
-  const { name, userid } = req.body;
+  const { ticketid, userid } = req.body;
 
-  const isExist = await Ticket.findOne({ name });
+  const isExist = await Ticket.findOne({ ticketid });
 
   if (!isExist) {
     throw new Error("no ticket was found");
@@ -17,7 +17,7 @@ router.put("/api/tickets/buy", async (req: Request, res: Response) => {
   try {
     await isExist.save();
     await publish.publish(
-      JSON.stringify({ name, userid }),
+      JSON.stringify({ ticketid, userid }),
       "order",
       "order.ticket"
     );
