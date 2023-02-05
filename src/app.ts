@@ -8,6 +8,7 @@ import { addTicketRouter } from "./routes/add";
 import { updateTicketRouter } from "./routes/update";
 import { rabbitmqConsumer } from "./rabbitmq/Consumer";
 import { testRouter } from "./routes/testing";
+import { getTicketsRouter } from "./routes/show";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(addTicketRouter);
 app.use(updateTicketRouter);
 app.use(testRouter);
+app.use(getTicketsRouter);
 
 app.get("/api/tickets/ping", (req, res) => {
   res.send("works :)");
