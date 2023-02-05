@@ -2,7 +2,7 @@ tickets:
   env:
     mongo:
       MONGO_URI: -mongodb.default.svc.cluster.local/testingprojticket
-      USERNAME: admin
+      USERNAME: root
       PASSWORD: aaaa
     RABBITMQ_CONNECTION: amqp://user:user@rabbitmq.default.svc.cluster.local
   image: $REPOSITORY_TAG
