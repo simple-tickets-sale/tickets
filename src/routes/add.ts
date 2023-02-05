@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/api/tickets/add", async (req: Request, res: Response) => {
   const { name, price, quantity } = req.body;
 
-  const ticket = new Ticket({
+  const ticket = Ticket.build({
     name,
     price,
     quantity,
