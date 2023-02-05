@@ -31,7 +31,7 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-            sh 'helm install ${SERVICE_NAME} ${WORKSPACE}/${SERVICE_NAME}-helm --set ${SERVICE_NAME}.image=${REPOSITORY_TAG}'
+            sh 'helm install ${SERVICE_NAME} ${WORKSPACE}/${SERVICE_NAME}-helm --set ${SERVICE_NAME}.image=${REPOSITORY_TAG} --set mongodb.auth.rootPassword="aaaa"'
           }
       }
    }
